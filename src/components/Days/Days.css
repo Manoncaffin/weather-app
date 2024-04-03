@@ -1,0 +1,11 @@
+.Days {
+    font-weight: bold;
+  }
+
+.normalDay {
+  font-weight: normal;
+}
+
+.card-action {
+  background: #120944;
+}
