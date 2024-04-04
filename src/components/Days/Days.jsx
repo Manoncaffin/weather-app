@@ -1,44 +1,56 @@
-import { useState } from 'react';
+import  { useState} from 'react';
 import "./Days.css";
 import '../Weather/Weather.css';
 import "../App/App.css";
 
-function Days() {
-  // return (
-  //   <div className="card-action">
-  //     <a href="#" className='Days'>Thursday</a>
-  //     <a href="#">Friday</a>
-  //     <a href="#">Saturday</a>
-  //     <a href="#">Sunday</a>
-  //     <a href="#">Monday</a>
-  //   </div>
-  // );
-  // Obtenir la date d'aujourd'hui
-  const today = new Date();
-  const daysOfWeek = ['Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  
-  // Fonction pour obtenir la date du jour suivant
-  const getNextDay = (currentDate, increment) => {
-    const nextDate = new Date(currentDate);
-    nextDate.setDate(currentDate.getDate() + increment);
-    return nextDate;
+// CODE COMMUN
+function Days({ handleClickDay }) {
+  // SECOND CODE :
+  const [selectedDay, setSelectedDay] = useState(null); // Ajout d'une variable d'état pour suivre le jour sélectionné
+
+  // Fonction pour gérer le clic sur un jour
+  const handleClick = (event, day) => {
+    event.preventDefault();
+    setSelectedDay(day); // Met à jour le jour sélectionné
+    handleClickDay(event); // Appelle la fonction handleClickDay passée en tant que prop
   };
 
-  // Définir l'état local pour suivre le jour sélectionné
-  const [selectedDay, setSelectedDay] = useState(daysOfWeek[today.getDay() -2]);
-
   return (
-    <div className="card-action">
-      {Array.from({length: 5}, (_, i) => i).map((index) => {
-        const day = daysOfWeek[(index)];
-        return (
-          <a key={index} href="#" className={selectedDay === day ? 'selected' : 'Days'} onClick={() => setSelectedDay(day)}>
-            {day}
-          </a>
-        );
-      })}
-    </div>
+    <>
+      <a href="#" className={selectedDay === 'Thursday' ? 'clickedDay' : ''} onClick={(event) => handleClick(event, 'Thursday')}>
+        Thursday
+      </a>
+      <a href="#" className={selectedDay === 'Friday' ? 'clickedDay' : ''} onClick={(event) => handleClick(event, 'Friday')}>
+        Friday
+      </a>
+      <a href="#" className={selectedDay === 'Saturday' ? 'clickedDay' : ''} onClick={(event) => handleClick(event, 'Saturday')}>
+        Saturday
+      </a>
+      <a href="#" className={selectedDay === 'Sunday' ? 'clickedDay' : ''} onClick={(event) => handleClick(event, 'Sunday')}>
+        Sunday
+      </a>
+      <a href="#" className={selectedDay === 'Monday' ? 'clickedDay' : ''} onClick={(event) => handleClick(event, 'Monday')}>
+        Monday
+      </a>
+    </>
   );
 }
 
 export default Days;
+
+
+  // PREMIER CODE 
+//   return (
+//     <>
+//     <a href="#" className="clickedDay" onClick={handleClickDay} >
+//       Thursday
+//     </a>
+//     <a href="#" onClick={handleClickDay}>Friday</a>
+//     <a href="#" onClick={handleClickDay}>Saturday</a>
+//     <a href="#" onClick={handleClickDay}>Sunday</a>
+//     <a href="#" onClick={handleClickDay}>Monday</a>
+//     </>
+//   );
+// }
+
+// export default Days;
